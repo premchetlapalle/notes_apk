@@ -47,11 +47,8 @@ class _SplashScreenState extends State<SplashScreen> {
             );
           }
         },
-        child: const Center(
-          child: Text(
-            "Splash Screen",
-            style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-          ),
+        child: Center(
+          child: Text("")
         ),
       ),
     );

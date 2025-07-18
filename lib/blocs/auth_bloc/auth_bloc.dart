@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:notes_apk/blocs/auth_bloc/auth_event.dart';
 import 'package:notes_apk/blocs/auth_bloc/auth_state.dart';
@@ -28,8 +29,12 @@ class AuthBloc extends Bloc<AuthEvent , AuthState>{
       }
     });
 
-    on<IfAuthEvent>((event , emit) async{
-      emit(Authenticated());
+    on<IfAuthEvent>((event, emit) async {
+      if (authRepository.isUserLoggedIn()) {
+        emit(Authenticated());
+      } else {
+        emit(AuthInitial());
+      }
     });
 
     on<SignOutEvent>((event , emit) async{
