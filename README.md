@@ -1,5 +1,3 @@
 # notes_apk
 
-A new Flutter project.
-
-![image alt](https://github.com/premchetlapalle/notes_apk/blob/d8f033d1ef402e980a7092616f089b27e1b533fb/Notes%20App%20Screenshots/Screenshot_20250718_153643.png)
+![image alt](https://github.com/premchetlapalle/notes_apk/blob/a5e14e974c3e7bc48b8d61a9df77beb0256cc9dd/Notes%20App%20Screenshots/Screenshot%202025-07-18%20165847.png)
