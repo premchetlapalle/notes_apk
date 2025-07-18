@@ -126,50 +126,70 @@ class _HomeScreenState extends State<HomeScreen> {
       itemCount: notes.length,
       itemBuilder: (context, index) {
         final note = notes[index];
-        return Container(
-          margin: const EdgeInsets.only(top: 12, left: 12, right: 12, bottom: 0),
-          decoration: BoxDecoration(
-            color: AppColors.appBarColor,
-            borderRadius: BorderRadius.circular(12),
-          ),
-          child: ListTile(
-            title: Text(
-              note.title,
-              style: const TextStyle(
-                fontWeight: FontWeight.bold,
-                color: AppColors.appIconColor,
+        return GestureDetector(
+          onTap: () async {
+            final result = await Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => AddNoteScreen(
+                  isEditing: true,
+                  noteId: note.id,
+                  existingTitle: note.title,
+                  existingMessage: note.message,
+                ),
               ),
+            );
+            if (result != null && result is Map<String, String>) {
+              final title = result['title'] ?? '';
+              final message = result['message'] ?? '';
+              if (title.isNotEmpty || message.isNotEmpty) {
+                BlocProvider.of<NotesListBloc>(context).add(UpdateNoteListEvent(note.id, title, message));
+              }
+            }
+          },
+          child: Container(
+            height: 65,
+            margin: const EdgeInsets.only(left: 12 , right: 12 , top:12),
+            padding: const EdgeInsets.symmetric(horizontal: 12),
+            decoration: BoxDecoration(
+              color: AppColors.appBarColor,
+              borderRadius: BorderRadius.circular(12),
             ),
-            subtitle: Text(
-              note.message,
-              style: const TextStyle(color: Colors.black87),
-            ),
-            trailing: IconButton(
-              icon: const Icon(Icons.delete, color: Colors.red),
-              onPressed: () {
-                BlocProvider.of<NotesListBloc>(context).add(DeleteNoteListEvent(note.id));
-              },
-            ),
-            onTap: () async {
-              final result = await Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => AddNoteScreen(
-                    isEditing: true,
-                    noteId: note.id,
-                    existingTitle: note.title,
-                    existingMessage: note.message,
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Expanded(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        note.title,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: const TextStyle(
+                          fontSize: 15,
+                          fontWeight: FontWeight.bold,
+                          color: AppColors.appIconColor,
+                        ),
+                      ),
+                      Text(
+                        note.message,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: const TextStyle(color: Colors.black87),
+                      ),
+                    ],
                   ),
                 ),
-              );
-              if (result != null && result is Map<String, String>) {
-                final title = result['title'] ?? '';
-                final message = result['message'] ?? '';
-                if (title.isNotEmpty || message.isNotEmpty) {
-                  BlocProvider.of<NotesListBloc>(context).add(UpdateNoteListEvent(note.id, title, message));
-                }
-              }
-            },
+                GestureDetector(
+                  onTap: () {
+                    BlocProvider.of<NotesListBloc>(context).add(DeleteNoteListEvent(note.id));
+                  },
+                  child: const Icon(Icons.delete, color: Colors.red),
+                ),
+              ],
+            ),
           ),
         );
       },
@@ -205,12 +225,13 @@ class _HomeScreenState extends State<HomeScreen> {
               final title = result['title'] ?? '';
               final message = result['message'] ?? '';
               if (title.isNotEmpty || message.isNotEmpty) {
-                BlocProvider.of<NotesListBloc>(context).add(UpdateNoteListEvent(note.id, title, message));
+                BlocProvider.of<NotesListBloc>(context)
+                    .add(UpdateNoteListEvent(note.id, title, message));
               }
             }
           },
           child: Container(
-            padding: const EdgeInsets.all(12),
+            padding: const EdgeInsets.symmetric(horizontal: 12 , vertical: 10),
             decoration: BoxDecoration(
               color: AppColors.appBarColor,
               borderRadius: BorderRadius.circular(10),
@@ -218,27 +239,45 @@ class _HomeScreenState extends State<HomeScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(note.title,
-                    style: const TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                      color: AppColors.appIconColor,
-                    )),
-                const SizedBox(height: 8),
-                Text(
-                  note.message,
-                  maxLines: 3,
-                  overflow: TextOverflow.ellipsis,
-                  style: const TextStyle(color: Colors.black87),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Expanded(
+                      child: Text(
+                        note.title,
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                        style: const TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                          color: AppColors.appIconColor,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(width: 8),
+                    GestureDetector(
+                      onTap: () {
+                        BlocProvider.of<NotesListBloc>(context)
+                            .add(DeleteNoteListEvent(note.id));
+                      },
+                      child: const Icon(
+                        Icons.delete,
+                        color: Colors.red,
+                        size: 20,
+                      ),
+                    ),
+                  ],
                 ),
-                const Spacer(),
-                Align(
-                  alignment: Alignment.bottomRight,
-                  child: IconButton(
-                    icon: const Icon(Icons.delete, color: Colors.red),
-                    onPressed: () {
-                      BlocProvider.of<NotesListBloc>(context).add(DeleteNoteListEvent(note.id));
-                    },
+                const SizedBox(height:4),
+                Expanded(
+                  child: Text(
+                    note.message,
+                    maxLines: 5,
+                    overflow: TextOverflow.ellipsis,
+                    style: const TextStyle(
+                      color: Colors.black87,
+                      fontSize: 14,
+                    ),
                   ),
                 ),
               ],
@@ -248,6 +287,7 @@ class _HomeScreenState extends State<HomeScreen> {
       },
     );
   }
+
 
   Widget _buildShimmerList() {
     return ListView.builder(
