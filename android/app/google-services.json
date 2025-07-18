@@ -1,0 +1,105 @@
+{
+  "project_info": {
+    "project_number": "788385310225",
+    "project_id": "sample-bf0ca",
+    "storage_bucket": "sample-bf0ca.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:788385310225:android:e738b693d9888b8b1773b0",
+        "android_client_info": {
+          "package_name": "com.ashuvssut.women_safety_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCgKtLf-aGvItoeYYIZ2ahAVTng5Sed2dA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:788385310225:android:5f88c44af40e79911773b0",
+        "android_client_info": {
+          "package_name": "com.example.notes_apk"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCgKtLf-aGvItoeYYIZ2ahAVTng5Sed2dA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:788385310225:android:17ce3944a0fbf0c61773b0",
+        "android_client_info": {
+          "package_name": "com.example.sample"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCgKtLf-aGvItoeYYIZ2ahAVTng5Sed2dA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:788385310225:android:8fd4e98ff8ed33741773b0",
+        "android_client_info": {
+          "package_name": "com.example.user_profile_management_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCgKtLf-aGvItoeYYIZ2ahAVTng5Sed2dA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:788385310225:android:43d6811dfe3f54d31773b0",
+        "android_client_info": {
+          "package_name": "com.example.women_safety_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCgKtLf-aGvItoeYYIZ2ahAVTng5Sed2dA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
