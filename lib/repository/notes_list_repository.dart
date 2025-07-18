@@ -1,33 +1,47 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:notes_apk/models/notes_list_model.dart';
 
 class NotesListRepository{
   final FirebaseFirestore firestore = FirebaseFirestore.instance;
 
   //fetch all the items from Firestore
-  Future<List<NotesListModel>> fetchNote() async{
+  Future<List<NotesListModel>> fetchNote() async {
     try {
-      QuerySnapshot snapshot = await firestore.collection("notes").get();
+      final userId = FirebaseAuth.instance.currentUser?.uid;
+      if (userId == null) throw Exception("User not authenticated");
+
+      QuerySnapshot snapshot = await firestore
+          .collection("notes")
+          .where("userId", isEqualTo: userId)
+          .get();
+
       return snapshot.docs
           .map((doc) =>
-            NotesListModel.fromMap(doc.data() as Map<String,dynamic>, doc.id))
+          NotesListModel.fromMap(doc.data() as Map<String, dynamic>, doc.id))
           .toList();
-    } catch (e){
+    } catch (e) {
       throw Exception("Error Fetching the List");
     }
   }
 
+
   //Add a new Note
   Future<void> addNote(String title, String message) async {
     try {
+      final userId = FirebaseAuth.instance.currentUser?.uid;
+      if (userId == null) throw Exception("User not authenticated");
+
       await firestore.collection("notes").add({
         'title': title,
         'message': message,
+        'userId': userId,
       });
     } catch (e) {
       throw Exception("Error Adding Note: $e");
     }
   }
+
 
   // Update an existing note
   Future<void> updateNote(String id, String title, String message) async {
